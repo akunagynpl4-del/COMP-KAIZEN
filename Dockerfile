@@ -36,7 +36,8 @@ COPY --from=frontend /app/public/build ./public/build
 COPY storage/app/public/products /opt/kaizen-product-assets/products
 COPY docker/container-entrypoint.sh /usr/local/bin/container-entrypoint
 
-RUN composer install --no-dev --no-interaction --prefer-dist --no-progress --optimize-autoloader \
+RUN mkdir -p bootstrap/cache storage/app/public storage/framework/cache/data storage/framework/sessions storage/framework/views storage/logs \
+    && composer install --no-dev --no-interaction --prefer-dist --no-progress --optimize-autoloader \
     && chmod +x /usr/local/bin/container-entrypoint \
     && chown -R www-data:www-data storage bootstrap/cache
 
