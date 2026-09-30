@@ -20,8 +20,8 @@ The admin seeder creates `admin@partyrentalpro.com` using `ADMIN_PASSWORD`. It d
 
 ## Deploy to Railway
 
-1. Create a Railway project and deploy this GitHub repository. Railway detects the root `Dockerfile` automatically.
-2. Add a MySQL service to the project and name it `MySQL`.
+1. Create a Railway project and add a MySQL service named `MySQL`.
+2. Install the Railway CLI, run `railway login`, link the Laravel service with `railway link`, then run `sh railway.sh` to deploy this repository. Railway detects the root `Dockerfile` automatically.
 3. In the Laravel service, add these variables:
 
 	```text
