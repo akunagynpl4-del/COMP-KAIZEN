@@ -14,8 +14,10 @@ if ! railway_cmd whoami >/dev/null 2>&1; then
     railway_cmd login
 fi
 
-if ! railway_cmd status >/dev/null 2>&1; then
-    railway_cmd link
-fi
-
-railway_cmd up --detach
+railway_cmd redeploy \
+    --project 439d7a23-1439-4037-a94b-7c13758ce9f4 \
+    --environment production \
+    --service kaizen-web \
+    --from-source \
+    --yes \
+    --json
