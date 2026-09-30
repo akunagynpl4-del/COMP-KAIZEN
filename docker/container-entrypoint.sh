@@ -3,6 +3,9 @@ set -eu
 
 cd /var/www/html
 
+rm -f /etc/apache2/mods-enabled/mpm_*.load /etc/apache2/mods-enabled/mpm_*.conf
+ln -s ../mods-available/mpm_prefork.load /etc/apache2/mods-enabled/mpm_prefork.load
+
 app_port="${PORT:-10000}"
 sed -ri "s/Listen [0-9]+/Listen ${app_port}/" /etc/apache2/ports.conf
 sed -ri "s/<VirtualHost \*:[0-9]+>/<VirtualHost *:${app_port}>/" /etc/apache2/sites-available/000-default.conf
