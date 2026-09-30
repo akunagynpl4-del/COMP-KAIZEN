@@ -33,6 +33,7 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www/html
 COPY . .
 COPY --from=frontend /app/public/build ./public/build
+COPY storage/app/public/products /opt/kaizen-product-assets/products
 COPY docker/container-entrypoint.sh /usr/local/bin/container-entrypoint
 
 RUN composer install --no-dev --no-interaction --prefer-dist --no-progress --optimize-autoloader \

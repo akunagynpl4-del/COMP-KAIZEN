@@ -15,6 +15,11 @@ mkdir -p \
     storage/framework/views \
     storage/logs
 
+if [ ! -d storage/app/public/products ] || [ -z "$(find storage/app/public/products -type f -print -quit)" ]; then
+    mkdir -p storage/app/public/products
+    cp -a /opt/kaizen-product-assets/products/. storage/app/public/products/
+fi
+
 chown -R www-data:www-data bootstrap/cache storage
 php artisan storage:link --force
 
