@@ -11,5 +11,11 @@ $kernel->bootstrap();
 
 if (Product::query()->doesntExist()) {
     $kernel->call('db:seed', ['--force' => true]);
-    echo $kernel->output();
+} else {
+    $kernel->call('db:seed', [
+        '--class' => Database\Seeders\AdminUserSeeder::class,
+        '--force' => true,
+    ]);
 }
+
+echo $kernel->output();
