@@ -33,13 +33,13 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www/html
 COPY . .
 COPY --from=frontend /app/public/build ./public/build
-COPY docker/render-entrypoint.sh /usr/local/bin/render-entrypoint
+COPY docker/container-entrypoint.sh /usr/local/bin/container-entrypoint
 
 RUN composer install --no-dev --no-interaction --prefer-dist --no-progress --optimize-autoloader \
-    && chmod +x /usr/local/bin/render-entrypoint \
+    && chmod +x /usr/local/bin/container-entrypoint \
     && chown -R www-data:www-data storage bootstrap/cache
 
 EXPOSE 10000
 
-ENTRYPOINT ["/usr/local/bin/render-entrypoint"]
+ENTRYPOINT ["/usr/local/bin/container-entrypoint"]
 CMD ["apache2-foreground"]
