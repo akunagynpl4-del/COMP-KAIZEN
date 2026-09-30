@@ -31,7 +31,11 @@ until php -r '
         $database = getenv("DB_DATABASE");
         $username = getenv("DB_USERNAME");
         $password = getenv("DB_PASSWORD");
-        new PDO("mysql:host={$host};port={$port};dbname={$database}", $username, $password, [PDO::ATTR_TIMEOUT => 2]);
+        if (!preg_match("/^[A-Za-z0-9_]+$/", $database)) {
+            exit(1);
+        }
+        $pdo = new PDO("mysql:host={$host};port={$port}", $username, $password, [PDO::ATTR_TIMEOUT => 2]);
+        $pdo->exec("CREATE DATABASE IF NOT EXISTS `{$database}` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
     } catch (Throwable $exception) {
         exit(1);
     }
